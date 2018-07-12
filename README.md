@@ -3,7 +3,7 @@
 # BEANS MARKETPLACE
 >C2C marketplace where payments and escrow service are handled by Solidity Contract.
 
-##Motivation
+## Motivation
 
 For C2C marketplace like carousell, what makes it attractive is that there is minimal costs involved with the lack of retailers and wholesalers, keeping the margins higher for sellers and prices lower for buyers. 
 There is also the convenience factor — instead of trying to sell items in person at a brick-and-mortar store, consumers can simply list their products online and wait for the buyers to come to them. Buyers don't need to drive around and search through stores for an item they want — they just have to search for it on a C2C site. 
