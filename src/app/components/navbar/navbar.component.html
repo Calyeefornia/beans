@@ -1,0 +1,10 @@
+<div class="body">
+  <div (click)="statusHome()"class='title' routerLink="/">BEANS MARKETPLACE</div>
+  <div class='signup'>
+    <div *ngIf="!isLoggedIn" routerLink="login">LOGIN / REGISTER</div>
+    <div *ngIf="isLoggedIn" routerLink="profile">{{loggedInUser}}</div>
+    <div *ngIf="isLoggedIn" routerLink="/" (click)="onLogout()">LOGOUT</div>
+  </div>
+  <hr>
+</div>
+<hr>

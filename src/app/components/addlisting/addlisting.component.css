@@ -1,0 +1,18 @@
+:host{
+  width: 100%;
+}
+
+.title{
+  height: 20%;
+
+}
+
+.listingBody{
+  height: 80%;
+}
+
+.additemform{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}

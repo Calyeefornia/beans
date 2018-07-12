@@ -1,0 +1,15 @@
+
+
+.nav{
+  height: 5%;
+}
+
+.main{
+  height: 95%;
+  display: flex;
+}
+
+.sidebar{
+  width: 25%;
+}
+

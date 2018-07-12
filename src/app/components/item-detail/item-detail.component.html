@@ -1,0 +1,21 @@
+<div class="main">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{itemDetails.itemName}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src='{{itemDetails.imgUrl}}'>
+    <mat-card-content>
+      <p>{{itemDetails.description}}</p>
+      <p>${{itemDetails.price}}</p>
+    </mat-card-content>
+  </mat-card>
+  <div class="descriptionBox">
+    <div>
+      DESCRIPTION
+      <br>
+      <p>{{itemDetails.description}}</p>
+    </div>
+  </div>
+
+</div>

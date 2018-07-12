@@ -1,0 +1,57 @@
+<div>
+  <div class="title">
+    ADD LISTING
+    <hr>
+  </div>
+
+  <div class="listingBody">
+    <form class="additemform" [formGroup]='uploadItem' (ngSubmit)='onSubmit($event)'>
+      <label for="file">IMAGE</label>
+      <br>
+      <div>
+    <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+</div>
+      <input type="file" (change)="detectImg($event)" accept=".png,.jpg" name="file" />
+      <mat-form-field>
+        <input matInput type='text' placeholder="ITEM" formControlName="itemName">
+        <mat-error *ngIf="name.invalid && name.touched">
+          Enter Item Name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number" matInput placeholder="PRICE" formControlName="price">
+        <mat-error *ngIf="price.invalid && price.touched">
+          Enter a value
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" matInput placeholder="DESCRIPTION" formControlName="description">
+        <mat-error *ngIf="description.invalid && description.touched">
+          Enter a description
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="CATEGORY" formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{category}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.invalid && category.touched">
+          Select a category
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <div *ngIf="uploadPercent | async as pct">
+
+        <progress class="progress is-info" [value]="pct" max="100">
+        </progress>
+
+        {{ pct | number }}%
+
+      </div>
+      <button mat-raised-button [disabled]='uploadItem.invalid' color='primary'>UPLOAD</button>
+    </form>
+
+  </div>
+</div>

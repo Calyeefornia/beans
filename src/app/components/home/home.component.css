@@ -1,0 +1,18 @@
+.allItems{
+  display: flex;
+  height: 100%;
+  flex-flow: row wrap;
+}
+
+.item{
+  max-width: 100px;
+  height: 200px;
+  margin: 5px;
+  cursor: pointer;
+}
+.item > img {
+  height: 50%;
+}
+.list{
+  height: 20%;
+}

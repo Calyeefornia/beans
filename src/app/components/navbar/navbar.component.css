@@ -1,0 +1,30 @@
+:host{
+  height: 20%;
+  width: 100%;
+}
+
+.body{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.body > div{
+  cursor: pointer;
+}
+
+.title{
+  position: absolute;
+  left: 50%;
+}
+
+.signup{
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.signup > div{
+  margin: 10px
+}

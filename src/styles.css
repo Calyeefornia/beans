@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.alert-success{
+  background: rgb(138, 212, 138);
+}
+
+.alert-danger{
+  background: rgb(212, 90, 90);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+ }
