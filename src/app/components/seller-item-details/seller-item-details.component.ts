@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemsService } from './../../services/items.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-seller-item-details',
@@ -34,8 +35,9 @@ export class SellerItemDetailsComponent implements OnInit {
       item.forEach(i => {
           this.itemDetails[i.key] = i.val;
       });
-      console.log(this.itemDetails);
     });
   }
+  onPurchaseReq() {
 
+  }
 }
