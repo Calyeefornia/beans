@@ -1,3 +1,4 @@
+import { EthcontractService } from './../../services/ethcontract.service';
 import { Component, OnInit } from '@angular/core';
 import { ItemsService } from './../../services/items.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -16,7 +17,8 @@ export class SellerItemDetailsComponent implements OnInit {
   constructor(
     private itemsService: ItemsService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private ethContractService: EthcontractService
   ) { }
 
   ngOnInit() {
@@ -38,6 +40,6 @@ export class SellerItemDetailsComponent implements OnInit {
     });
   }
   onPurchaseReq() {
-
+    this.ethContractService.createEscrow();
   }
 }

@@ -1,3 +1,4 @@
+import { EthcontractService } from './services/ethcontract.service';
 import { FilterService } from './services/filter.service';
 import { AuthService } from './services/auth.service';
 import {ItemsService} from './services/items.service';
@@ -20,7 +21,6 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 import { AppComponent } from './app.component';
-import { MetaModule } from './meta/meta.module';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -71,10 +71,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MetaModule,
     AngularFireStorageModule
   ],
-  providers: [AngularFireAuth, AngularFireDatabase, AuthService, AuthGuard, ItemsService, FilterService],
+  providers: [AngularFireAuth, AngularFireDatabase, AuthService, AuthGuard, ItemsService, FilterService, EthcontractService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
