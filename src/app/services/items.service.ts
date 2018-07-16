@@ -58,10 +58,14 @@ export class ItemsService {
   }
 
   getParticularListing(uid, itemId) {
-    return this.af.list('users/' + this.uid + '/listings/' + itemId).snapshotChanges().pipe(
+    return this.af.list('users/' + uid + '/listings/' + itemId).snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, val: c.payload.val() }))
       )
     );
+
+  }
+  getUserEthAcc(sellerId){
+    return this.af.object('users/' + sellerId + '/personal/').valueChanges();
   }
 }

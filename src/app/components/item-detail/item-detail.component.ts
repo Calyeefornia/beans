@@ -34,7 +34,6 @@ export class ItemDetailComponent implements OnInit {
       item.forEach(i => {
           this.itemDetails[i.key] = i.val;
       });
-      console.log(this.itemDetails);
     });
   }
 }

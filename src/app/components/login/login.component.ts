@@ -1,3 +1,4 @@
+import { EthcontractService } from './../../services/ethcontract.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private flashMessagesService: FlashMessagesService,
     private fb: FormBuilder,
     private authService: AuthService,
+    private ethContractService: EthcontractService,
     private router: Router
   ) {}
 
@@ -79,10 +81,22 @@ export class LoginComponent implements OnInit {
           if (auth) {
             userId = auth.uid;
             const username = this.register.value.name;
-            this.authService.updateUserInfo(userId, username, this.register.value.email);
+            let ethAccount='temp';
+            let that = this;
+            this.ethContractService
+            .getAccInfo()
+            .then(function(acctInfo) {
+              const obj = { ...acctInfo };
+              if (obj['fromAccount']) {
+                ethAccount = obj['fromAccount'];
+                that.authService.updateUserInfo(userId, username, that.register.value.email, ethAccount);
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
           }
         });
-
 
         this.flashMessagesService.show('New user registered', {
           cssClass: 'alert-success',

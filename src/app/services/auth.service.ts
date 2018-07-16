@@ -29,17 +29,19 @@ export class AuthService {
         .then(userData => resolve(userData), err => reject(err));
     });
   }
+
   logout() {
     this.afAuth.auth.signOut();
   }
-  updateUserInfo(uid, username, email) {
-    console.log(uid);
+  updateUserInfo(uid, username, email, ethAccount) {
     this.user = this.af.object('users/' + uid + '/personal');
     const personal = {
       email: email,
       name: username,
-      ethAddress: 0
+      ethAddress: ethAccount
     };
     this.user.set(personal);
   }
+
+
 }
