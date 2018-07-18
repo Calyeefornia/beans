@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as TruffleContract from 'truffle-contract';
+import { Observable } from 'rxjs/Observable';
 
 const Web3 = require('web3');
 declare let require: any;
@@ -18,14 +19,10 @@ export class EthcontractService {
 
   constructor() {
     if (typeof window.web3 !== 'undefined') {
-      console.warn(
-        'Using web3 detected from external source.'
-      );
+      console.warn('Using web3 detected from external source.');
       this.web3 = new Web3(window.web3.currentProvider);
     } else {
-      console.warn(
-        'No web3 detected.'
-      );
+      console.warn('No web3 detected.');
       this.web3 = new Web3(
         new Web3.providers.HttpProvider('http://localhost:8545')
       );
@@ -37,24 +34,38 @@ export class EthcontractService {
       window.web3.eth.getCoinbase(function(err, account) {
         if (err === null) {
           return resolve({
-            fromAccount: account,
+            fromAccount: account
           });
         } else {
-          return reject("error!");
+          return reject('error!');
         }
       });
     });
   }
 
-  createEscrow(price, sellerAddress, buyerAddress){
+  createEscrow(price, sellerAddress, buyerAddress): Observable<any> {
     let escrow;
-    console.log("test");
-    this.Escrow.deployed().then(instance => {
-      console.log(instance);
-      console.log('this works');
-      escrow = instance;
-      return escrow.createEscrow(sellerAddress, price, {from: buyerAddress});
-    })
+    return Observable.create(observer => {
+      this.Escrow.deployed().then(instance => {
+        escrow = instance;
+        console.log(escrow);
+        return escrow.createEscrow(sellerAddress, price, {
+          from: buyerAddress,
+          value: price
+        });
+        // return escrow.depositBean({from: buyerAddress, value: price});
+        // return escrow.allEscrows.call("0x566853d0671032660d6120a2dc0dd84b045f58124c7d514c311ea9bfb77d1b6c",{from:buyerAddress});
+        // return this.web3.eth.getBalance("0xB56A56A107d4AD0C53841d42c1e0456778aa1bA6")
+      }).then(value => {
+        console.log(value);
+        observer.next(value);
+        observer.complete();
+      })
+      .catch(e => {
+        console.log(e);
+        observer.error(e);
+      })
+    });
   }
 
   // createEscrow(_transferFrom) {

@@ -68,4 +68,15 @@ export class ItemsService {
   getUserEthAcc(sellerId){
     return this.af.object('users/' + sellerId + '/personal/').valueChanges();
   }
+
+  updateEscrow(uid, itemId, escrowHashLocation, buyerUid) {
+    return this.af.object('users/' + uid + '/listings/' + itemId).update({
+      buyer: buyerUid,
+      hashMapping: escrowHashLocation
+    });
+  }
+
+  getMyPurchase() {
+    return this.users.valueChanges();
+  }
 }

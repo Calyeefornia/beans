@@ -45,9 +45,12 @@ export class SellerItemDetailsComponent implements OnInit {
   }
   onPurchaseReq() {
     let buyer = '';
+    let buyerUid = '';
     this.authService.getAuth().subscribe(auth => {
       if (!auth) {
         this.router.navigate(['/login']);
+      } else {
+        buyerUid = auth.uid;
       }
     });
     const that = this;
@@ -60,8 +63,13 @@ export class SellerItemDetailsComponent implements OnInit {
           that.itemsService.getUserEthAcc(that.userId).subscribe((add) => {
             const price = that.itemDetails.price;
             const sellerAddress = add['ethAddress'];
-            console.log(sellerAddress);
-            that.ethContractService.createEscrow(price, sellerAddress, buyer);
+            that.ethContractService.createEscrow(price, sellerAddress, buyer).subscribe((tx) =>{
+              console.log(tx.logs[0].args['_exchangeHash']);
+              const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
+              that.itemsService.updateEscrow(that.userId, that.itemId, escrowHashLocation, buyerUid);
+            }, e => {
+              console.log("failure");
+            });
 
           });
 

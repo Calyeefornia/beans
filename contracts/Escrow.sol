@@ -35,6 +35,10 @@ contract Escrow {
 
     function depositBean() public payable{}
 
+    function checkBean() public view returns(uint){
+        return address(this).balance;
+    }
+
     function createEscrow(address sellerAddress, uint amount) public payable returns (bool){
         require(msg.value > 0);
 

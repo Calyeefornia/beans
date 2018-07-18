@@ -21,5 +21,17 @@
   <div class="myRequest">
     YOUR PURCHASE REQUEST
     <hr>
+    <div class="allItems">
+      <mat-card [routerLink]="['/item/'+ i.key]" *ngFor='let i of purchaseList' class='item' (click)='openItem()'>
+        <mat-card-header>
+          <mat-card-title>{{i.itemName}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src='{{i.imgUrl}}'>
+        <mat-card-content>
+          <p>{{i.description}}</p>
+          <p>${{i.price}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>
