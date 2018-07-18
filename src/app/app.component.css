@@ -1,7 +1,11 @@
-
+:host{
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 9pt;
+}
 
 .nav{
   height: 5%;
+  border-bottom: 1px solid black;
 }
 
 .main{
@@ -10,6 +14,8 @@
 }
 
 .sidebar{
-  width: 25%;
+  width: 20%;
+  border-right: 1px solid black;
+  text-align: center;
 }
 

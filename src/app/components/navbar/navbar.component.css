@@ -1,5 +1,5 @@
 :host{
-  height: 20%;
+  height: 30%;
   width: 100%;
 }
 
@@ -15,7 +15,8 @@
 
 .title{
   position: absolute;
-  left: 50%;
+  left: 40%;
+  font-size: 1.5em;
 }
 
 .signup{
@@ -28,3 +29,4 @@
 .signup > div{
   margin: 10px
 }
+

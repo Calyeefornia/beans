@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   users: any[];
   allListings: any[];
   status: string;
+  search: string;
 
   constructor(public itemsService: ItemsService, private data: FilterService) {}
 
@@ -30,6 +31,9 @@ export class HomeComponent implements OnInit {
             return;
           }
           for (const key of Object.keys(user.listings)) {
+            if (user.listings[key].isSold === true) {
+              return;
+            }
             const ref = user.listings[key];
             ref.itemKey = key;
             this.allListings.push(user.listings[key]);
@@ -43,12 +47,63 @@ export class HomeComponent implements OnInit {
             return;
           }
           for (const key of Object.keys(user.listings)) {
+            if (user.listings[key].isSold === true) {
+              return;
+            }
             if (status !== user.listings[key].category) {
               return;
             }
             const ref = user.listings[key];
             ref.itemKey = key;
             this.allListings.push(user.listings[key]);
+          }
+        });
+      });
+    }
+  }
+
+  searchItem(event: any) {
+    this.search = '';
+    this.search += event.target.value;
+    this.allListings = [{}];
+    if (this.search === '') {
+      this.itemsService.getAllListing().subscribe(users => {
+        users.forEach(user => {
+          if (!user.hasOwnProperty('listings')) {
+            return;
+          }
+          for (const key of Object.keys(user.listings)) {
+            if (user.listings[key].isSold === true) {
+              return;
+            }
+            const ref = user.listings[key];
+            ref.itemKey = key;
+            this.allListings.push(user.listings[key]);
+          }
+        });
+      });
+    } else {
+      this.itemsService.getAllListing().subscribe(users => {
+        users.forEach(user => {
+          if (!user.hasOwnProperty('listings')) {
+            return;
+          }
+          for (const key of Object.keys(user.listings)) {
+            if (user.listings[key].isSold === true) {
+              return;
+            }
+            if (
+              user.listings[key].itemName
+                .toLowerCase()
+                .trim()
+                .includes(this.search.toLowerCase())
+            ) {
+              const ref = user.listings[key];
+              ref.itemKey = key;
+              this.allListings.push(user.listings[key]);
+            } else {
+              return;
+            }
           }
         });
       });

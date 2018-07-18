@@ -5,14 +5,17 @@
 }
 
 .item{
-  max-width: 100px;
-  height: 200px;
-  margin: 5px;
+  max-width: 150px;
+  margin: 20px;
   cursor: pointer;
 }
-.item > img {
-  height: 50%;
-}
+
 .list{
   height: 20%;
+}
+
+.searchBar input[type=text] {
+  border: 1px solid black;
+  margin-top: 8px;
+  font-size: 1.5em;
 }

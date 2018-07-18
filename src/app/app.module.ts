@@ -16,9 +16,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
-
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
 
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -71,7 +69,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
   providers: [AngularFireAuth, AngularFireDatabase, AuthService, AuthGuard, ItemsService, FilterService, EthcontractService],
   bootstrap: [AppComponent]
