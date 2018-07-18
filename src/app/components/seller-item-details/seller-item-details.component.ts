@@ -1,3 +1,4 @@
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from './../../services/auth.service';
 import { EthcontractService } from './../../services/ethcontract.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,8 @@ export class SellerItemDetailsComponent implements OnInit {
     private authService: AuthService,
     public router: Router,
     public route: ActivatedRoute,
-    private ethContractService: EthcontractService
+    private ethContractService: EthcontractService,
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit() {
@@ -67,6 +69,11 @@ export class SellerItemDetailsComponent implements OnInit {
               console.log(tx.logs[0].args['_exchangeHash']);
               const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
               that.itemsService.updateEscrow(that.userId, that.itemId, escrowHashLocation, buyerUid);
+              that.flashMessagesService.show('PURCHASE REQUEST SUCCESSFUL', {
+                cssClass: 'alert-success',
+                timeout: 4000
+              });
+              that.router.navigate(['/profile']);
             }, e => {
               console.log("failure");
             });

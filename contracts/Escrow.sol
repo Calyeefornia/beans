@@ -6,6 +6,7 @@ contract Escrow {
     mapping(bytes32 => EscrowDetails) public allEscrows;
 
     event EscrowCreated(bytes32 _exchangeHash);
+    event PaymentSuccess(uint amt);
 
     struct EscrowDetails {
         bool exists;
@@ -82,7 +83,8 @@ contract Escrow {
     function completePayment(bytes32 exchangeHash) private {
         EscrowDetails memory escrowRef = allEscrows[exchangeHash];
         address seller = escrowRef.seller;
-        uint amt = escrowRef.amount;
+        uint amt = escrowRef.amount * 1 ether;
         seller.transfer(amt);
+        emit PaymentSuccess(amt);
     }
 }

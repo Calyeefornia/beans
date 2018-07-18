@@ -2,6 +2,8 @@ import { ItemsService } from './../../services/items.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { EthcontractService } from './../../services/ethcontract.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    private ethContractService: EthcontractService,
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit() {
@@ -34,8 +38,6 @@ export class ProfileComponent implements OnInit {
               return;
             }
             for (const key of Object.keys(user.listings)) {
-              console.log(user.listings[key].buyer);
-              console.log(buyer);
               if (buyer === user.listings[key].buyer) {
                 const ref = user.listings[key];
                 ref.itemKey = key;
@@ -53,7 +55,58 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/addlisting']);
   }
 
-  openItem() {
-    console.log('thisworks');
+  ethSellerVote(_exchangeHash) {
+    let seller = '';
+    const that = this;
+    console.log(_exchangeHash);
+    this.ethContractService.getAccInfo().then(function(acctInfo) {
+      const obj = { ...acctInfo };
+        if (obj['fromAccount']) {
+          seller = obj['fromAccount'];
+          console.log(seller);
+          that.ethContractService.sellerVoteEscrow(_exchangeHash, seller).subscribe((result) => {
+            console.log(result);
+            that.flashMessagesService.show('YOU HAVE SUCCESSFULLY SENT ITEM', {
+              cssClass: 'alert-success',
+              timeout: 4000
+            });
+          }, err => {
+            console.log('failure');
+            that.flashMessagesService.show('YOU ARE NOT ALLOWED TO DO THIS', {
+              cssClass: 'alert-danger',
+              timeout: 4000
+            });
+          });
+        }
+    });
+
+  }
+
+  ethBuyerVote(_exchangeHash, sellerKey, itemKey){
+    let buyer = '';
+    const that = this;
+    console.log(sellerKey);
+    console.log(itemKey);
+    this.ethContractService.getAccInfo().then(function(acctInfo) {
+      const obj = { ...acctInfo };
+        if (obj['fromAccount']) {
+          buyer = obj['fromAccount'];
+          console.log(buyer);
+          that.ethContractService.buyerVoteEscrow(_exchangeHash, buyer).subscribe((result) => {
+            console.log(result);
+            that.itemsService.isSoldUpdate(sellerKey, itemKey);
+            that.flashMessagesService.show('YOU HAVE SUCCESSFULLY PAID', {
+              cssClass: 'alert-success',
+              timeout: 4000
+            });
+          }, err => {
+            console.log('failure');
+            that.flashMessagesService.show('YOU ARE NOT ALLOWED TO DO THIS', {
+              cssClass: 'alert-danger',
+              timeout: 4000
+            });
+          });
+        }
+    });
   }
 }

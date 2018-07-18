@@ -51,7 +51,7 @@ export class EthcontractService {
         console.log(escrow);
         return escrow.createEscrow(sellerAddress, price, {
           from: buyerAddress,
-          value: price
+          value: window.web3.toWei(price)
         });
         // return escrow.depositBean({from: buyerAddress, value: price});
         // return escrow.allEscrows.call("0x566853d0671032660d6120a2dc0dd84b045f58124c7d514c311ea9bfb77d1b6c",{from:buyerAddress});
@@ -64,33 +64,54 @@ export class EthcontractService {
       .catch(e => {
         console.log(e);
         observer.error(e);
+      });
+    });
+  }
+  sellerVoteEscrow(_exchangeHash, sellerAddress): Observable<any>{
+    let escrow;
+    return Observable.create(observer => {
+      this.Escrow.deployed().then(instance => {
+        escrow = instance;
+        console.log(escrow);
+        return escrow.sellerRequest(_exchangeHash, {
+          from: sellerAddress
+        });
+        // return escrow.depositBean({from: buyerAddress, value: price});
+        // return escrow.allEscrows.call("0x3773682ecacbb11b3b3ff73543f15b10290319db37243b2323a031d5f702a7c7" ,{from:sellerAddress});
+        // return this.web3.eth.getBalance("0xB56A56A107d4AD0C53841d42c1e0456778aa1bA6")
+      }).then(value => {
+        console.log(value);
+        observer.next(value);
+        observer.complete();
+      })
+      .catch(e => {
+        console.log(e);
+        observer.error(e);
       })
     });
   }
-
-  // createEscrow(_transferFrom) {
-  //   const that = this;
-  //   return new Promise((resolve, reject) => {
-  //     const escrowContract = TruffleContract(tokenABI);
-  //     escrowContract.setProvider(that.web3Provider);
-  //     escrowContract
-  //       .deployed()
-  //       .then(function(instance) {
-  //         console.log('deplyoed');
-  //         return instance.transferFund(_transferTo, {
-  //           from: _transferFrom,
-  //           value: window.utils.web3.toWei(_amount, 'ether')
-  //         });
-  //       })
-  //       .then(function(status) {
-  //         if (status) {
-  //           return resolve({ status: true });
-  //         }
-  //       })
-  //       .catch(function(err) {
-  //         console.log(err);
-  //         return reject('error in transfer');
-  //       });
-  //   });
-  // }
+  buyerVoteEscrow(_exchangeHash, buyerAddress): Observable<any>{
+    let escrow;
+    return Observable.create(observer => {
+      this.Escrow.deployed().then(instance => {
+        escrow = instance;
+        console.log(escrow);
+        console.log(_exchangeHash);
+        return escrow.buyerSatisfied(_exchangeHash, {
+          from: buyerAddress
+        });
+        // return escrow.depositBean({from: buyerAddress, value: price});
+        // return escrow.allEscrows.call(_exchangeHash, {from: buyerAddress});
+        // return this.web3.eth.getBalance("0xB56A56A107d4AD0C53841d42c1e0456778aa1bA6")
+      }).then(value => {
+        console.log(value);
+        observer.next(value);
+        observer.complete();
+      })
+      .catch(e => {
+        console.log(e);
+        observer.error(e);
+      })
+    });
+  }
 }

@@ -77,6 +77,17 @@ export class ItemsService {
   }
 
   getMyPurchase() {
-    return this.users.valueChanges();
+    return this.users.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
   }
+
+  isSoldUpdate(sellerId, itemId){
+    return this.af.object('users/' + sellerId + '/listings/' + itemId).update({
+      isSold: true
+    });
+  }
+
 }

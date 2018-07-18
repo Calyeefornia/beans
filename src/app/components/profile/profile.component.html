@@ -5,8 +5,8 @@
       <div class='addList' (click)='addListing()'>ADD LISTING</div>
     </div>
     <hr>
-    <div class="allItems">
-      <mat-card [routerLink]="['/item/'+ i.key]" *ngFor='let i of listings' class='item' (click)='openItem()'>
+    <div class="allItems" *ngFor='let i of listings'>
+      <mat-card [routerLink]="['/item/'+ i.key]"  class='item'>
         <mat-card-header>
           <mat-card-title>{{i.itemName}}</mat-card-title>
         </mat-card-header>
@@ -16,13 +16,14 @@
           <p>${{i.price}}</p>
         </mat-card-content>
       </mat-card>
+      <div *ngIf="i.buyer" class="acceptButton" (click)="ethSellerVote(i.hashMapping)">ACCEPT PURCHASE REQUEST AND SHIP ITEM</div>
     </div>
   </div>
   <div class="myRequest">
     YOUR PURCHASE REQUEST
     <hr>
-    <div class="allItems">
-      <mat-card [routerLink]="['/item/'+ i.key]" *ngFor='let i of purchaseList' class='item' (click)='openItem()'>
+    <div class="allItems" *ngFor='let i of purchaseList; let idx=index'>
+      <mat-card *ngIf="idx != 0" class='item'>
         <mat-card-header>
           <mat-card-title>{{i.itemName}}</mat-card-title>
         </mat-card-header>
@@ -32,6 +33,7 @@
           <p>${{i.price}}</p>
         </mat-card-content>
       </mat-card>
+      <div *ngIf="i.buyer && !i.isSold" class="acceptButton" (click)="ethBuyerVote(i.hashMapping, i.seller, i.itemKey)">I RECEIVED THE ITEM IN WORKING CONDITION</div>
     </div>
   </div>
 </div>
