@@ -34,6 +34,9 @@ export class HomeComponent implements OnInit {
             if (user.listings[key].isSold === true) {
               return;
             }
+            if (user.listings[key].isProccessing === true) {
+              return;
+            }
             const ref = user.listings[key];
             ref.itemKey = key;
             this.allListings.push(user.listings[key]);
@@ -48,6 +51,9 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
+              return;
+            }
+            if (user.listings[key].isProccessing === true) {
               return;
             }
             if (status !== user.listings[key].category) {
@@ -76,6 +82,9 @@ export class HomeComponent implements OnInit {
             if (user.listings[key].isSold === true) {
               return;
             }
+            if (user.listings[key].isProccessing === true) {
+              return;
+            }
             const ref = user.listings[key];
             ref.itemKey = key;
             this.allListings.push(user.listings[key]);
@@ -90,6 +99,9 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
+              return;
+            }
+            if (user.listings[key].isProccessing === true) {
               return;
             }
             if (

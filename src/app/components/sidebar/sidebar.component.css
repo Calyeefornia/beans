@@ -1,4 +1,12 @@
 .cat{
-  margin: 5px;
+  margin: 15px;
   cursor: pointer;
+  font-size: 1.2em;
+  transition-duration: 0.2s;
+}
+
+.cat:hover{
+  background: #000 !important;
+  color: #fff !important;
+  transition-duration: 0.2s;
 }

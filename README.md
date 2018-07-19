@@ -82,7 +82,7 @@ ng serve
 ```
 
 
-## Features
+## Features/User Stories
 
 * As a non-registered user, I want to 
   * Register an account
@@ -94,10 +94,14 @@ ng serve
   * upload a listing(inclusive of picture and product description)
   * preview image before it is uploading.
   * receive payment.
+  * Won't be able to buy my own item.
 
 * As a buyer, I want to 
   * browse through listings 
-  * Search Bar Filter Features(Price, Category, Seller’s Rating)
+   * After click on a listing, I should be able to see more detail about the product.
+  * Search Bar
+    1. Category
+    2. Item Name
   * Make payment securely
 
 * As an admin/third-party I want to 

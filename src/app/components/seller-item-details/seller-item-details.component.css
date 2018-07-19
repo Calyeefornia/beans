@@ -1,15 +1,29 @@
-mat-card{
-  max-width: 300px;
-  margin-right: 20px;
-}
-
-.main{
+.main {
   display: flex;
-  height: 40%;
+  height: 50%;
+  flex-direction: column;
+  width: 100%;
+}
+mat-card {
+  max-width: 320px;
+  text-align: center;
 }
 
-.descriptionBox{
+.descriptionBox {
   width: 100%;
-  border: 2px solid grey;
-  height: 50%
+  border: 1px solid grey;
+  height: 70%;
+  text-align: center;
 }
+
+button {
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  background: #000 !important;
+  color: #fff !important;
+  transition-duration: 0.2s;
+}
+
+

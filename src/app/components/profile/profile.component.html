@@ -5,36 +5,26 @@
       <div class='addList' (click)='addListing()'>ADD LISTING</div>
     </div>
     <div class='items'>
-      <div class="item" *ngFor='let i of listings'>
-        <mat-card [routerLink]="['/item/'+ i.key]">
-          <mat-card-header>
-            <mat-card-title>{{i.itemName}}</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src='{{i.imgUrl}}'>
-          <mat-card-content>
-            <p>{{i.description}}</p>
-            <p>${{i.price}}</p>
-          </mat-card-content>
-        </mat-card>
-        <div *ngIf="i.buyer" class="acceptButton" (click)="ethSellerVote(i.hashMapping)">ACCEPT PURCHASE REQUEST</div>
+      <div class="item" *ngFor='let i of listings' [routerLink]="['/item/'+ i.key]">
+        <div>
+          <h3>{{i.itemName}}</h3>
+          <img src='{{i.imgUrl}}'>
+          <p>${{i.price}}</p>
+        </div>
+        <button *ngIf="i.buyer" class="acceptButton" (click)="ethSellerVote(i.hashMapping)">ACCEPT PURCHASE REQUEST</button>
       </div>
     </div>
   </div>
   <div class="myRequest">
     <div class="title">YOUR PURCHASE REQUEST</div>
     <div class="items">
-      <div class="item" *ngFor='let i of purchaseList; let idx=index'>
-        <mat-card *ngIf="idx != 0">
-          <mat-card-header>
-            <mat-card-title>{{i.itemName}}</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src='{{i.imgUrl}}'>
-          <mat-card-content>
-            <p>{{i.description}}</p>
-            <p>${{i.price}}</p>
-          </mat-card-content>
-        </mat-card>
-        <div *ngIf="i.buyer && !i.isSold" class="acceptButton" (click)="ethBuyerVote(i.hashMapping, i.seller, i.itemKey)">RECEIVED THE ITEM IN WORKING CONDITION</div>
+      <div class="item" *ngFor='let i of purchaseList| slice:1'>
+        <div>
+          <h3>{{i.itemName}}</h3>
+          <img src='{{i.imgUrl}}'>
+          <p>${{i.price}}</p>
+        </div>
+        <button *ngIf="i.buyer && !i.isSold" class="acceptButton" (click)="ethBuyerVote(i.hashMapping, i.seller, i.itemKey)">RECEIVED THE ITEM IN WORKING CONDITION</button>
       </div>
     </div>
   </div>

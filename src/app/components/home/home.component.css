@@ -10,12 +10,16 @@
   cursor: pointer;
 }
 
+.item:hover{
+  opacity: 0.6;
+}
+
 .list{
   height: 20%;
 }
 
 .searchBar input[type=text] {
   border: 1px solid black;
-  margin-top: 8px;
+  margin: 8px;
   font-size: 1.5em;
 }

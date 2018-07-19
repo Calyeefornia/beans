@@ -58,14 +58,11 @@ export class ProfileComponent implements OnInit {
   ethSellerVote(_exchangeHash) {
     let seller = '';
     const that = this;
-    console.log(_exchangeHash);
     this.ethContractService.getAccInfo().then(function(acctInfo) {
       const obj = { ...acctInfo };
         if (obj['fromAccount']) {
           seller = obj['fromAccount'];
-          console.log(seller);
           that.ethContractService.sellerVoteEscrow(_exchangeHash, seller).subscribe((result) => {
-            console.log(result);
             that.flashMessagesService.show('YOU HAVE SUCCESSFULLY SENT ITEM', {
               cssClass: 'alert-success',
               timeout: 4000
@@ -85,15 +82,11 @@ export class ProfileComponent implements OnInit {
   ethBuyerVote(_exchangeHash, sellerKey, itemKey) {
     let buyer = '';
     const that = this;
-    console.log(sellerKey);
-    console.log(itemKey);
     this.ethContractService.getAccInfo().then(function(acctInfo) {
       const obj = { ...acctInfo };
         if (obj['fromAccount']) {
           buyer = obj['fromAccount'];
-          console.log(buyer);
           that.ethContractService.buyerVoteEscrow(_exchangeHash, buyer).subscribe((result) => {
-            console.log(result);
             that.itemsService.isSoldUpdate(sellerKey, itemKey);
             that.flashMessagesService.show('YOU HAVE SUCCESSFULLY PAID', {
               cssClass: 'alert-success',

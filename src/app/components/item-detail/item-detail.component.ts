@@ -32,8 +32,20 @@ export class ItemDetailComponent implements OnInit {
     this.itemId = this.route.snapshot.params['id'];
     this.itemsService.getMyItem(this.itemId).subscribe(item => {
       item.forEach(i => {
-          this.itemDetails[i.key] = i.val;
+        this.itemDetails[i.key] = i.val;
       });
     });
+  }
+  deleteItem() {
+    this.itemsService
+      .deleteMyItem(this.itemId)
+      .then(() => {
+        this.router.navigate(['/profile']);
+        this.flashMessagesService.show('SUCCESSFULLY DELETED ITEM', {
+          cssClass: 'alert-success',
+          timeout: 4000
+        });
+      })
+      .catch(err => console.log(err));
   }
 }

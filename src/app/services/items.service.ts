@@ -71,7 +71,8 @@ export class ItemsService {
   updateEscrow(uid, itemId, escrowHashLocation, buyerUid) {
     return this.af.object('users/' + uid + '/listings/' + itemId).update({
       buyer: buyerUid,
-      hashMapping: escrowHashLocation
+      hashMapping: escrowHashLocation,
+      isProccessing: true
     });
   }
 
@@ -88,12 +89,16 @@ export class ItemsService {
       isSold: true
     });
   }
+
   getAllListinWithKey() {
     return this.users.snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     );
+  }
+  deleteMyItem(itemId) {
+    return this.af.object('users/' + this.uid + '/listings/' + itemId).set(null);
   }
 
 }

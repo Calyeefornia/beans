@@ -15,6 +15,7 @@ export class SellerItemDetailsComponent implements OnInit {
   itemId: string;
   userId: string;
   itemDetails: any;
+  isSeller: boolean;
 
   constructor(
     private itemsService: ItemsService,
@@ -37,6 +38,11 @@ export class SellerItemDetailsComponent implements OnInit {
     };
     this.userId = this.route.snapshot.params['seller'];
     this.itemId = this.route.snapshot.params['id'];
+    this.authService.getAuth().subscribe(auth => {
+      if (auth.uid === this.userId) {
+        this.isSeller = true;
+      }
+    });
     this.itemsService
       .getParticularListing(this.userId, this.itemId)
       .subscribe(item => {
@@ -62,24 +68,35 @@ export class SellerItemDetailsComponent implements OnInit {
         const obj = { ...acctInfo };
         if (obj['fromAccount']) {
           buyer = obj['fromAccount'];
-          that.itemsService.getUserEthAcc(that.userId).subscribe((add) => {
+          that.itemsService.getUserEthAcc(that.userId).subscribe(add => {
             const price = that.itemDetails.price;
             const sellerAddress = add['ethAddress'];
-            that.ethContractService.createEscrow(price, sellerAddress, buyer).subscribe((tx) => {
-              console.log(tx.logs[0].args['_exchangeHash']);
-              const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
-              that.itemsService.updateEscrow(that.userId, that.itemId, escrowHashLocation, buyerUid);
-              that.flashMessagesService.show('PURCHASE REQUEST SUCCESSFUL', {
-                cssClass: 'alert-success',
-                timeout: 4000
-              });
-              that.router.navigate(['/profile']);
-            }, e => {
-              console.log('failure');
-            });
-
+            that.ethContractService
+              .createEscrow(price, sellerAddress, buyer)
+              .subscribe(
+                tx => {
+                  console.log(tx.logs[0].args['_exchangeHash']);
+                  const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
+                  that.itemsService.updateEscrow(
+                    that.userId,
+                    that.itemId,
+                    escrowHashLocation,
+                    buyerUid
+                  );
+                  that.flashMessagesService.show(
+                    'PURCHASE REQUEST SUCCESSFUL',
+                    {
+                      cssClass: 'alert-success',
+                      timeout: 4000
+                    }
+                  );
+                  that.router.navigate(['/profile']);
+                },
+                e => {
+                  console.log('failure');
+                }
+              );
           });
-
         }
       })
       .catch(function(error) {

@@ -17,10 +17,12 @@
 
 .myListing{
   width: 100%;
+
 }
 
 .myRequest{
   width: 100%;
+
 }
 
 .items{
@@ -30,21 +32,33 @@
 }
 
 .item{
-  max-width: 200px;
+  border: 1px solid black;
   margin: 20px;
   display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 200px;
+  text-align: center;
 }
 
-
 .acceptButton{
-  height: 50%;
-  padding: 1px;
   cursor: pointer;
-  border: 1px solid black;
+  transition: 0.2s ease;
+}
+
+.acceptButton:hover{
+  background: #000 !important;
+  color: #fff !important;
+  transition: 0.2s ease;
 }
 
 .title{
   font-size:1.5em;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+img{
+  width: 120px;
+  height: 120px;
 }
