@@ -6,7 +6,7 @@ GEMINI
 # Target Audience/Group: 
 Online Shoppers in Consumer 2 Consumer Marketplace
 
-#Aim 
+# Aim 
 1. Elimination of Intermediaries -> Reduce Cost
 2. Ensure secure payments in C2C Marketplace.
 
