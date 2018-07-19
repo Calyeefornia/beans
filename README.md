@@ -3,6 +3,13 @@
 # PROPOSED LEVEL OF ACHIEVEMENT
 GEMINI
 
+# Target Audience/Group: 
+Online Shoppers in Consumer 2 Consumer Marketplace
+
+#Aim 
+1. Elimination of Intermediaries -> Reduce Cost
+2. Ensure secure payments in C2C Marketplace.
+
 # BEANS MARKETPLACE
 >C2C marketplace where payments and escrow service are handled by a Smart Contract.
 
@@ -77,8 +84,15 @@ ng serve
 
 ## Features
 
+* As a non-registered user, I want to 
+  * Register an account
+  * Allowed to view listings without registering account.
+  * Unable to upload listing.
+  * Unable to view other pages except the signup/login and listings page.
+
 * As a Seller, I want to 
   * upload a listing(inclusive of picture and product description)
+  * preview image before it is uploading.
   * receive payment.
 
 * As a buyer, I want to 
@@ -92,11 +106,11 @@ ng serve
 
 
 ## Technology Stack
-Angular
-Firebase
-Metamask
-Web3
-Solidity
+* Angular
+* Firebase
+* Metamask
+* Web3
+* Solidity
 
 
 ## Links
