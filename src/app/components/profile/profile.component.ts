@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  ethBuyerVote(_exchangeHash, sellerKey, itemKey){
+  ethBuyerVote(_exchangeHash, sellerKey, itemKey) {
     let buyer = '';
     const that = this;
     console.log(sellerKey);

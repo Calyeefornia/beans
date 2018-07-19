@@ -1,0 +1,18 @@
+.allItems{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.item{
+  max-width: 150px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+
+.searchBar input[type=text] {
+  border: 1px solid black;
+  margin-top: 8px;
+  font-size: 1.5em;
+}

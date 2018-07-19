@@ -65,7 +65,7 @@ export class SellerItemDetailsComponent implements OnInit {
           that.itemsService.getUserEthAcc(that.userId).subscribe((add) => {
             const price = that.itemDetails.price;
             const sellerAddress = add['ethAddress'];
-            that.ethContractService.createEscrow(price, sellerAddress, buyer).subscribe((tx) =>{
+            that.ethContractService.createEscrow(price, sellerAddress, buyer).subscribe((tx) => {
               console.log(tx.logs[0].args['_exchangeHash']);
               const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
               that.itemsService.updateEscrow(that.userId, that.itemId, escrowHashLocation, buyerUid);
@@ -75,7 +75,7 @@ export class SellerItemDetailsComponent implements OnInit {
               });
               that.router.navigate(['/profile']);
             }, e => {
-              console.log("failure");
+              console.log('failure');
             });
 
           });

@@ -16,7 +16,7 @@ contract Escrow {
         uint amount; //Stores amount of the item to be sold
         bool buyerHappy; //Determines if buyer is happy
         bool sellerRequest; //Determines if seller is happy
-        bool escrowHappy; //Middlemen steps in to resolve if both parties conflict.
+        bool escrowResolved; //Middlemen steps in to resolve if both parties conflict.
     }
     constructor () public {
         owner = msg.sender;
@@ -56,7 +56,7 @@ contract Escrow {
         newEscrow.amount = amount;
         newEscrow.buyerHappy = false;
         newEscrow.sellerRequest = false;
-        newEscrow.escrowHappy = false;
+        newEscrow.escrowResolved = false;
 
         allEscrows[exchangeHash] = newEscrow;
         emit EscrowCreated(exchangeHash); //Alerts that the escrow has been created and the corresponding address of it.
@@ -74,10 +74,16 @@ contract Escrow {
         completePayment(exchangeHash);
     }
 
-    function ownerResolve(bytes32 exchangeHash) public onlyOwner(exchangeHash){
+    function ownerResolveFavorSeller(bytes32 exchangeHash) public onlyOwner(exchangeHash){
         EscrowDetails storage escrowRef = allEscrows[exchangeHash];
-        escrowRef.escrowHappy = true;
+        escrowRef.escrowResolved = true;
         completePayment(exchangeHash);
+    }
+
+    function ownerResolveFavorBuyer(bytes32 exchangeHash) public onlyOwner(exchangeHash){
+        EscrowDetails storage escrowRef = allEscrows[exchangeHash];
+        escrowRef.escrowResolved = true;
+        refundPayment(exchangeHash);
     }
 
     function completePayment(bytes32 exchangeHash) private {
@@ -85,6 +91,14 @@ contract Escrow {
         address seller = escrowRef.seller;
         uint amt = escrowRef.amount * 1 ether;
         seller.transfer(amt);
+        emit PaymentSuccess(amt);
+    }
+
+    function refundPayment(bytes32 exchangeHash) private {
+        EscrowDetails memory escrowRef = allEscrows[exchangeHash];
+        address buyer = escrowRef.buyer;
+        uint amt = escrowRef.amount * 1 ether;
+        buyer.transfer(amt);
         emit PaymentSuccess(amt);
     }
 }

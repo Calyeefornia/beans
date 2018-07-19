@@ -6,14 +6,14 @@ import { Observable } from 'rxjs/Rx';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private router: Router, public afAuth: AngularFireAuth, private flashMessagesService: FlashMessagesService) {}
 
   canActivate(): Observable<boolean> {
     return this.afAuth.authState.map(auth => {
-      if (!auth) {
+      if (!auth || auth.uid !== 'fc3uJEDW7ucYP75LTVsimxpbWOU2') {
         this.router.navigate(['/login']);
-        this.flashMessagesService.show('REGISTER OR LOGIN FIRST', {
+        this.flashMessagesService.show('YOU ARE NOT ALLOWED THERE', {
           cssClass: 'alert-danger',
           timeout: 4000
         });

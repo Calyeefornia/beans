@@ -2,7 +2,6 @@ import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class ItemsService {
@@ -84,10 +83,17 @@ export class ItemsService {
     );
   }
 
-  isSoldUpdate(sellerId, itemId){
+  isSoldUpdate(sellerId, itemId) {
     return this.af.object('users/' + sellerId + '/listings/' + itemId).update({
       isSold: true
     });
+  }
+  getAllListinWithKey() {
+    return this.users.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
   }
 
 }

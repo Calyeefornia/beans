@@ -1,3 +1,4 @@
+import { AdminGuard } from './guards/admin.guard';
 import { EthcontractService } from './services/ethcontract.service';
 import { FilterService } from './services/filter.service';
 import { AuthService } from './services/auth.service';
@@ -38,6 +39,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AddlistingComponent } from './components/addlisting/addlisting.component';
 import { ItemDetailComponent } from './components/item-detail/item-detail.component';
 import { SellerItemDetailsComponent } from './components/seller-item-details/seller-item-details.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,12 +47,13 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'addlisting', component: AddlistingComponent, canActivate: [AuthGuard]},
   { path: 'item/:id', component: ItemDetailComponent },
-  { path: 'item/:seller/:id', component: SellerItemDetailsComponent }
+  { path: 'item/:seller/:id', component: SellerItemDetailsComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] }
 ];
 
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent, LoginComponent, SidebarComponent, ProfileComponent, AddlistingComponent, ItemDetailComponent, SellerItemDetailsComponent],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, LoginComponent, SidebarComponent, ProfileComponent, AddlistingComponent, ItemDetailComponent, SellerItemDetailsComponent, AdminComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
@@ -71,7 +74,7 @@ const appRoutes: Routes = [
     HttpModule,
     AngularFireStorageModule,
   ],
-  providers: [AngularFireAuth, AngularFireDatabase, AuthService, AuthGuard, ItemsService, FilterService, EthcontractService],
+  providers: [AngularFireAuth, AngularFireDatabase, AuthService, AuthGuard, ItemsService, FilterService, EthcontractService, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

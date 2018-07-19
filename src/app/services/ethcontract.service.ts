@@ -67,7 +67,7 @@ export class EthcontractService {
       });
     });
   }
-  sellerVoteEscrow(_exchangeHash, sellerAddress): Observable<any>{
+  sellerVoteEscrow(_exchangeHash, sellerAddress): Observable<any> {
     let escrow;
     return Observable.create(observer => {
       this.Escrow.deployed().then(instance => {
@@ -87,10 +87,10 @@ export class EthcontractService {
       .catch(e => {
         console.log(e);
         observer.error(e);
-      })
+      });
     });
   }
-  buyerVoteEscrow(_exchangeHash, buyerAddress): Observable<any>{
+  buyerVoteEscrow(_exchangeHash, buyerAddress): Observable<any> {
     let escrow;
     return Observable.create(observer => {
       this.Escrow.deployed().then(instance => {
@@ -111,7 +111,55 @@ export class EthcontractService {
       .catch(e => {
         console.log(e);
         observer.error(e);
+      });
+    });
+  }
+  favorBuyerEscrow(_exchangeHash, admin): Observable<any> {
+    let escrow;
+    return Observable.create(observer => {
+      this.Escrow.deployed().then(instance => {
+        escrow = instance;
+        console.log(escrow);
+        console.log(_exchangeHash);
+        return escrow.ownerResolveFavorBuyer(_exchangeHash, {
+          from: admin
+        });
+        // return escrow.depositBean({from: buyerAddress, value: price});
+        // return escrow.allEscrows.call(_exchangeHash, {from: buyerAddress});
+        // return this.web3.eth.getBalance("0xB56A56A107d4AD0C53841d42c1e0456778aa1bA6")
+      }).then(value => {
+        console.log(value);
+        observer.next(value);
+        observer.complete();
       })
+      .catch(e => {
+        console.log(e);
+        observer.error(e);
+      });
+    });
+  }
+  favorSellerEscrow(_exchangeHash, admin): Observable<any> {
+    let escrow;
+    return Observable.create(observer => {
+      this.Escrow.deployed().then(instance => {
+        escrow = instance;
+        console.log(escrow);
+        console.log(_exchangeHash);
+        return escrow.ownerResolveFavorSeller(_exchangeHash, {
+          from: admin
+        });
+        // return escrow.depositBean({from: buyerAddress, value: price});
+        // return escrow.allEscrows.call(_exchangeHash, {from: buyerAddress});
+        // return this.web3.eth.getBalance("0xB56A56A107d4AD0C53841d42c1e0456778aa1bA6")
+      }).then(value => {
+        console.log(value);
+        observer.next(value);
+        observer.complete();
+      })
+      .catch(e => {
+        console.log(e);
+        observer.error(e);
+      });
     });
   }
 }
