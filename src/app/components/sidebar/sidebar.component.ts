@@ -1,6 +1,6 @@
 import { FilterService } from './../../services/filter.service';
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   status: string;
 
-  constructor(private data: FilterService) { }
+  constructor(private data: FilterService, public router: Router) { }
 
   ngOnInit() {
     this.data.currentStatus.subscribe(status => this.status = status);
@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
 
   newStatus(cat) {
     this.data.changeStatus(cat);
+    this.router.navigate(['/']);
   }
 
 }

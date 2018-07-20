@@ -57,6 +57,7 @@ export class SellerItemDetailsComponent implements OnInit {
     this.authService.getAuth().subscribe(auth => {
       if (!auth) {
         this.router.navigate(['/login']);
+        return false;
       } else {
         buyerUid = auth.uid;
       }
