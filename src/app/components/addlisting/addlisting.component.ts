@@ -77,15 +77,19 @@ export class AddlistingComponent implements OnInit {
         finalize(() => {
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe(url => {
-            console.log(url);
-            this.itemsService.upload(url, this.uploadItem.value.itemName, this.uploadItem.value.price, this.uploadItem.value.description, this.uploadItem.value.category);
+            this.itemsService.upload(
+              url,
+              this.uploadItem.value.itemName,
+              this.uploadItem.value.price,
+              this.uploadItem.value.description,
+              this.uploadItem.value.category
+            );
             this.flashMessagesService.show('You have uploaded an item', {
               cssClass: 'alert-success',
               timeout: 4000
             });
             this.router.navigate(['']);
           });
-          console.log('ended');
         })
       )
       .subscribe();

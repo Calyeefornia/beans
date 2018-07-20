@@ -32,10 +32,10 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             if (user.listings[key].isProccessing === true) {
-              return;
+              continue;
             }
             const ref = user.listings[key];
             ref.itemKey = key;
@@ -51,13 +51,13 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             if (user.listings[key].isProccessing === true) {
-              return;
+              continue;
             }
             if (status !== user.listings[key].category) {
-              return;
+              continue;
             }
             const ref = user.listings[key];
             ref.itemKey = key;
@@ -80,10 +80,10 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             if (user.listings[key].isProccessing === true) {
-              return;
+              continue;
             }
             const ref = user.listings[key];
             ref.itemKey = key;
@@ -99,10 +99,10 @@ export class HomeComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             if (user.listings[key].isProccessing === true) {
-              return;
+              continue;
             }
             if (
               user.listings[key].itemName
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
               ref.itemKey = key;
               this.allListings.push(user.listings[key]);
             } else {
-              return;
+              continue;
             }
           }
         });

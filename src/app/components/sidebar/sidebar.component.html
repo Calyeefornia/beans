@@ -1,5 +1,5 @@
 <div>
-  <h3 (click)='newStatus("")'>CATEGORIES</h3>
+  <h3 class='cat' (click)='newStatus("")'>CATEGORIES</h3>
   <hr>
   <div (click)='newStatus(cat)' *ngFor='let cat of categories' class='cat'>
     {{cat}}
