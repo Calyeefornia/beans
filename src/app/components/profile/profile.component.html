@@ -4,6 +4,12 @@
       <div>YOUR LISTINGS</div>
       <div class='addList' (click)='addListing()'>ADD LISTING</div>
     </div>
+    <div class='noList' *ngIf='listings.length <= 1'>
+        <br>
+        YOU HAVE NO LISTINGS
+        <br>
+        START BY CLICKING ADD LISTING!
+      </div>
     <div class='items'>
       <div class="item" *ngFor='let i of listings' [routerLink]="['/item/'+ i.key]">
         <div>
