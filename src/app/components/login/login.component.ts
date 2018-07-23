@@ -81,20 +81,25 @@ export class LoginComponent implements OnInit {
           if (auth) {
             userId = auth.uid;
             const username = this.register.value.name;
-            let ethAccount='temp';
+            let ethAccount = 'temp';
             let that = this;
             this.ethContractService
-            .getAccInfo()
-            .then(function(acctInfo) {
-              const obj = { ...acctInfo };
-              if (obj['fromAccount']) {
-                ethAccount = obj['fromAccount'];
-                that.authService.updateUserInfo(userId, username, that.register.value.email, ethAccount);
-              }
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
+              .getAccInfo()
+              .then(function(acctInfo) {
+                const obj = { ...acctInfo };
+                if (obj['fromAccount']) {
+                  ethAccount = obj['fromAccount'];
+                  that.authService.updateUserInfo(
+                    userId,
+                    username,
+                    that.register.value.email,
+                    ethAccount
+                  );
+                }
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
           }
         });
 
@@ -129,5 +134,102 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigate(['/login']);
       });
+  }
+  loginFacebook() {
+    this.authService
+      .fbLogin()
+      .then(res => {
+        if (res['additionalUserInfo'].isNewUser) {
+          let userId = '';
+          this.authService.getAuth().subscribe(auth => {
+            if (auth) {
+              userId = auth.uid;
+              const username = auth.displayName;
+              const email = auth.email;
+              let ethAccount = 'temp';
+              let that = this;
+              this.ethContractService
+                .getAccInfo()
+                .then(function(acctInfo) {
+                  const obj = { ...acctInfo };
+                  if (obj['fromAccount']) {
+                    ethAccount = obj['fromAccount'];
+                    that.authService.updateUserInfo(
+                      userId,
+                      username,
+                      email,
+                      ethAccount
+                    );
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+          });
+        }
+
+        this.flashMessagesService.show('WELCOME', {
+          cssClass: 'alert-success',
+          timeout: 4000
+        });
+        this.router.navigate(['/']);
+      })
+      .catch(err => {
+        this.flashMessagesService.show(err.message, {
+          cssClass: 'alert-danger',
+          timeout: 4000
+        });
+        this.router.navigate(['/login']);
+      });
+  }
+
+  loginGoogle() {
+    this.authService
+    .googleLogin()
+    .then(res => {
+      if (res['additionalUserInfo'].isNewUser) {
+        let userId = '';
+        this.authService.getAuth().subscribe(auth => {
+          if (auth) {
+            userId = auth.uid;
+            const username = auth.displayName;
+            const email = auth.email;
+            let ethAccount = 'temp';
+            let that = this;
+            this.ethContractService
+              .getAccInfo()
+              .then(function(acctInfo) {
+                const obj = { ...acctInfo };
+                if (obj['fromAccount']) {
+                  ethAccount = obj['fromAccount'];
+                  that.authService.updateUserInfo(
+                    userId,
+                    username,
+                    email,
+                    ethAccount
+                  );
+                }
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+          }
+        });
+      }
+
+      this.flashMessagesService.show('WELCOME', {
+        cssClass: 'alert-success',
+        timeout: 4000
+      });
+      this.router.navigate(['/']);
+    })
+    .catch(err => {
+      this.flashMessagesService.show(err.message, {
+        cssClass: 'alert-danger',
+        timeout: 4000
+      });
+      this.router.navigate(['/login']);
+    });
   }
 }

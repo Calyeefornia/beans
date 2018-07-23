@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  AngularFireList,
+  AngularFireObject
+} from 'angularfire2/database';
 import { map } from 'rxjs/operators';
+import { auth } from 'firebase';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +34,21 @@ export class AuthService {
     });
   }
 
+  fbLogin() {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth
+        .signInWithPopup(new auth.FacebookAuthProvider())
+        .then(userData => resolve(userData), err => reject(err));
+    });
+  }
+  googleLogin() {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth
+        .signInWithPopup(new auth.GoogleAuthProvider())
+        .then(userData => resolve(userData), err => reject(err));
+    });
+  }
+
   logout() {
     this.afAuth.auth.signOut();
   }
@@ -41,6 +61,4 @@ export class AuthService {
     };
     this.user.set(personal);
   }
-
-
 }

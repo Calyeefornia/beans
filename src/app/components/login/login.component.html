@@ -18,6 +18,10 @@
       <br>
       <button mat-raised-button [disabled]='login.invalid' color='primary'>LOGIN</button>
     </form>
+    <div id="buttons">
+      <button class="loginBtn loginBtn--facebook" (click)="loginFacebook()">Login with Facebook</button>
+      <button class="loginBtn loginBtn--google" (click)="loginGoogle()">Login with Google</button>
+    </div>
   </div>
   <div class="form2">
     <h2>REGISTER</h2>
