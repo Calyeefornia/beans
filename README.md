@@ -1,4 +1,4 @@
-![Logo of the project](https://i.imgur.com/rI8wDQs.jpg)
+![Logo of the project](https://imgur.com/a/2iiJIGd)
 
 # PROPOSED LEVEL OF ACHIEVEMENT
 GEMINI
