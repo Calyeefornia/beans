@@ -90,6 +90,8 @@ ng serve
 
 * As a non-registered user, I want to 
   * Register an account
+   * With Email & Passowrd
+   * With Social Platforms -> Facebook & Google
   * Allowed to view listings without registering account.
   * Unable to upload listing.
   * Unable to view other pages except the signup/login and listings page.

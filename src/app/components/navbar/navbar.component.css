@@ -19,6 +19,7 @@
   font-size: 1.5em;
 }
 
+
 .signup{
   position: absolute;
   right: 0;
@@ -27,9 +28,20 @@
 }
 
 .signup > div{
-  margin: 10px
+  margin: 10px;
+  transition: 0.2s ease;
+  font-size: 1.2em;
+}
+.signup > div:hover{
+  background: #000 !important;
+  color: #fff !important;
+  transition-duration: 0.2s;
+  font-size: 1.6em;
 }
 
 img{
-  width: 50%;
+  width: 60%;
+}
+img:hover{
+  width: 64%;
 }

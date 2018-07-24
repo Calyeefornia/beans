@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.getAuth().subscribe(auth => {
+      if (auth) {
+        this.router.navigate(['/']);
+      }
+    });
     this.register = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
