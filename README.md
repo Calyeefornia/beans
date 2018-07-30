@@ -3,8 +3,9 @@
 **NOTE: ALL FEATURES ARE WORKING ON THE WEBSITE EXCEPT THE PAYMENT SERVICE BECAUSE TO DEPLOY THE CONTRACT TO THE NETWORK, WE HAVE TO PAY MONEY. HOWEVER, YOU CAN VIEW THE PAYMENT FUNCTION IN OUR VIDEO. WE HAVE TESTED IT LOCALLY**
 
 **TO TEST OUR SITE SMOOTHLY. YOU NEED 2 THINGS! CHROME AND METAMASK**
-[ ][CHROME](https://www.google.com/chrome/)
-[ ][Metamask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)**
+
+* [ ][CHROME](https://www.google.com/chrome/)
+* [ ][Metamask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
 
 Website Deployed here: [Beans-MarketPlace](https://beans-marketplace.azurewebsites.net/)
 
