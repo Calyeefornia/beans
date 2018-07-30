@@ -8,7 +8,9 @@
 * [ ][CHROME](https://www.google.com/chrome/)
 * [ ][Metamask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
 
-Website Deployed here: [Beans-MarketPlace](https://beans-marketplace.azurewebsites.net/)
+Website Deployed Here: [Beans-MarketPlace](https://beans-marketplace.azurewebsites.net/)
+
+Video Demonstration Here: [Beans-MarketPlace Video](https://youtu.be/6_INCRTBA2g)
 
 
 
