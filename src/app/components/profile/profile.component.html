@@ -22,7 +22,7 @@
   <div class="myRequest">
     <div class="title">YOUR PURCHASE REQUEST</div>
     <div class="items">
-      <div class="item" *ngFor='let i of purchaseList| slice:1'>
+      <div class="item" *ngFor='let i of purchaseList| slice:1' [routerLink]="['/item/'+ i.seller + '/' + i.itemKey]">
         <div>
           <h3>{{i.itemName}}</h3>
           <img src='{{i.imgUrl}}'>

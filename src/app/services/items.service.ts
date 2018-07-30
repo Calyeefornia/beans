@@ -11,11 +11,13 @@ export class ItemsService {
   userPersonal: AngularFireList<any>;
   userReceipts: AngularFireList<any>;
   uid: string;
+  email: string;
 
   constructor(public af: AngularFireDatabase, public authService: AuthService) {
     authService.getAuth().subscribe(auth => {
       if (auth) {
         this.uid = auth.uid;
+        this.email = auth.email;
         this.user = this.af.list('users/' + this.uid);
         this.userListings = this.af.list('users/' + this.uid + '/listings');
       }
@@ -38,18 +40,23 @@ export class ItemsService {
   }
 
   getMyListing() {
-    return this.userListings.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    );
+    return this.userListings
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
   }
   getMyItem(itemId) {
-    return this.af.list('users/' + this.uid + '/listings/' + itemId).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, val: c.payload.val() }))
-      )
-    );
+    return this.af
+      .list('users/' + this.uid + '/listings/' + itemId)
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, val: c.payload.val() }))
+        )
+      );
   }
 
   getAllListing() {
@@ -57,14 +64,16 @@ export class ItemsService {
   }
 
   getParticularListing(uid, itemId) {
-    return this.af.list('users/' + uid + '/listings/' + itemId).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, val: c.payload.val() }))
-      )
-    );
-
+    return this.af
+      .list('users/' + uid + '/listings/' + itemId)
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, val: c.payload.val() }))
+        )
+      );
   }
-  getUserEthAcc(sellerId){
+  getUserEthAcc(sellerId) {
     return this.af.object('users/' + sellerId + '/personal/').valueChanges();
   }
 
@@ -77,11 +86,13 @@ export class ItemsService {
   }
 
   getMyPurchase() {
-    return this.users.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    );
+    return this.users
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
   }
 
   isSoldUpdate(sellerId, itemId) {
@@ -91,14 +102,49 @@ export class ItemsService {
   }
 
   getAllListinWithKey() {
-    return this.users.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    );
+    return this.users
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
   }
   deleteMyItem(itemId) {
-    return this.af.object('users/' + this.uid + '/listings/' + itemId).set(null);
+    return this.af
+      .object('users/' + this.uid + '/listings/' + itemId)
+      .set(null);
   }
 
+  updateChatSeller(msg, itemId) {
+    this.af
+      .list('users/' + this.uid + '/listings/' + itemId + '/messages')
+      .push({ message: msg, name: this.email });
+  }
+
+  retrieveMessages(itemId) {
+    return this.af
+      .list('users/' + this.uid + '/listings/' + itemId + '/messages')
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
+  }
+  retrieveMessagesBuyer(itemId, sellerId) {
+    return this.af
+      .list('users/' + sellerId + '/listings/' + itemId + '/messages')
+      .snapshotChanges()
+      .pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
+  }
+  updateChatBuyer(msg, itemId, userId) {
+    this.af
+      .list('users/' + userId + '/listings/' + itemId + '/messages')
+      .push({ message: msg, name: this.email });
+  }
 }

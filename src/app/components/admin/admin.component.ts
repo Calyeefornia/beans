@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
         }
         for (const key of Object.keys(user.listings)) {
           if (user.listings[key].isSold === true) {
-            return;
+            continue;
           }
           const ref = user.listings[key];
           ref.itemKey = key;
@@ -51,7 +51,7 @@ export class AdminComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             const ref = user.listings[key];
             ref.itemKey = key;
@@ -67,7 +67,7 @@ export class AdminComponent implements OnInit {
           }
           for (const key of Object.keys(user.listings)) {
             if (user.listings[key].isSold === true) {
-              return;
+              continue;
             }
             if (
               user.listings[key].itemName
@@ -79,7 +79,7 @@ export class AdminComponent implements OnInit {
               ref.itemKey = key;
               this.allUnsoldListings.push(user.listings[key]);
             } else {
-              return;
+              continue;
             }
           }
         });
@@ -94,9 +94,7 @@ export class AdminComponent implements OnInit {
       const obj = { ...acctInfo };
         if (obj['fromAccount']) {
           admin = obj['fromAccount'];
-          console.log(admin);
           that.ethContractService.favorBuyerEscrow(_exchangeHash, admin).subscribe((result) => {
-            console.log(result);
             that.itemsService.isSoldUpdate(itemSeller, itemKey);
             that.flashMessagesService.show('YOU HAVE FAVORED THE BUYER', {
               cssClass: 'alert-success',
@@ -120,9 +118,7 @@ export class AdminComponent implements OnInit {
       const obj = { ...acctInfo };
         if (obj['fromAccount']) {
           admin = obj['fromAccount'];
-          console.log(admin);
           that.ethContractService.favorSellerEscrow(_exchangeHash, admin).subscribe((result) => {
-            console.log(result);
             that.itemsService.isSoldUpdate(itemSeller, itemKey);
             that.flashMessagesService.show('YOU HAVE FAVORED THE SELLER', {
               cssClass: 'alert-success',

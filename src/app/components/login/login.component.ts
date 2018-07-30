@@ -152,7 +152,7 @@ export class LoginComponent implements OnInit {
               const username = auth.displayName;
               const email = auth.email;
               let ethAccount = 'temp';
-              let that = this;
+              const that = this;
               this.ethContractService
                 .getAccInfo()
                 .then(function(acctInfo) {
@@ -201,7 +201,7 @@ export class LoginComponent implements OnInit {
             const username = auth.displayName;
             const email = auth.email;
             let ethAccount = 'temp';
-            let that = this;
+            const that = this;
             this.ethContractService
               .getAccInfo()
               .then(function(acctInfo) {

@@ -11,6 +11,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class ItemDetailComponent implements OnInit {
   itemId: string;
   itemDetails: any;
+  msgValue: string;
+  messages: any;
 
   constructor(
     public itemsService: ItemsService,
@@ -35,6 +37,9 @@ export class ItemDetailComponent implements OnInit {
         this.itemDetails[i.key] = i.val;
       });
     });
+    this.itemsService.retrieveMessages(this.itemId).subscribe(messages => {
+      this.messages = messages;
+    });
   }
   deleteItem() {
     this.itemsService
@@ -47,5 +52,10 @@ export class ItemDetailComponent implements OnInit {
         });
       })
       .catch(err => console.log(err));
+  }
+
+  sendChat(msg) {
+    this.itemsService.updateChatSeller(msg, this.itemId);
+    this.msgValue = '';
   }
 }

@@ -16,6 +16,9 @@ export class SellerItemDetailsComponent implements OnInit {
   userId: string;
   itemDetails: any;
   isSeller: boolean;
+  buyerId: string;
+  messages: any;
+  msgValue: string;
 
   constructor(
     private itemsService: ItemsService,
@@ -41,6 +44,8 @@ export class SellerItemDetailsComponent implements OnInit {
     this.authService.getAuth().subscribe(auth => {
       if (auth.uid === this.userId) {
         this.isSeller = true;
+      } else {
+        this.buyerId = auth.uid;
       }
     });
     this.itemsService
@@ -49,6 +54,11 @@ export class SellerItemDetailsComponent implements OnInit {
         item.forEach(i => {
           this.itemDetails[i.key] = i.val;
         });
+      });
+    this.itemsService
+      .retrieveMessagesBuyer(this.itemId, this.userId)
+      .subscribe(messages => {
+        this.messages = messages;
       });
   }
   onPurchaseReq() {
@@ -60,48 +70,52 @@ export class SellerItemDetailsComponent implements OnInit {
         return false;
       } else {
         buyerUid = auth.uid;
-      }
-    });
-    const that = this;
-    this.ethContractService
-      .getAccInfo()
-      .then(function(acctInfo) {
-        const obj = { ...acctInfo };
-        if (obj['fromAccount']) {
-          buyer = obj['fromAccount'];
-          that.itemsService.getUserEthAcc(that.userId).subscribe(add => {
-            const price = that.itemDetails.price;
-            const sellerAddress = add['ethAddress'];
-            that.ethContractService
-              .createEscrow(price, sellerAddress, buyer)
-              .subscribe(
-                tx => {
-                  console.log(tx.logs[0].args['_exchangeHash']);
-                  const escrowHashLocation = tx.logs[0].args['_exchangeHash'];
-                  that.itemsService.updateEscrow(
-                    that.userId,
-                    that.itemId,
-                    escrowHashLocation,
-                    buyerUid
-                  );
-                  that.flashMessagesService.show(
-                    'PURCHASE REQUEST SUCCESSFUL',
-                    {
-                      cssClass: 'alert-success',
-                      timeout: 4000
+        const that = this;
+        this.ethContractService
+          .getAccInfo()
+          .then(function(acctInfo) {
+            const obj = { ...acctInfo };
+            if (obj['fromAccount']) {
+              buyer = obj['fromAccount'];
+              that.itemsService.getUserEthAcc(that.userId).subscribe(add => {
+                const price = that.itemDetails.price;
+                const sellerAddress = add['ethAddress'];
+                that.ethContractService
+                  .createEscrow(price, sellerAddress, buyer)
+                  .subscribe(
+                    tx => {
+                      const escrowHashLocation =
+                        tx.logs[0].args['_exchangeHash'];
+                      that.itemsService.updateEscrow(
+                        that.userId,
+                        that.itemId,
+                        escrowHashLocation,
+                        buyerUid
+                      );
+                      that.flashMessagesService.show(
+                        'PURCHASE REQUEST SUCCESSFUL',
+                        {
+                          cssClass: 'alert-success',
+                          timeout: 4000
+                        }
+                      );
+                      that.router.navigate(['/profile']);
+                    },
+                    e => {
+                      console.log('failure');
                     }
                   );
-                  that.router.navigate(['/profile']);
-                },
-                e => {
-                  console.log('failure');
-                }
-              );
+              });
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
           });
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+      }
+    });
+  }
+  sendChat(msg) {
+    this.itemsService.updateChatBuyer(msg, this.itemId, this.userId);
+    this.msgValue = '';
   }
 }

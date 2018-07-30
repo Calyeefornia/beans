@@ -11,7 +11,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.afAuth.authState.map(auth => {
-      if (!auth || auth.uid !== 'fc3uJEDW7ucYP75LTVsimxpbWOU2') {
+      if (!auth || auth.uid !== 'ypxnVz52EidhRbx6z3FEaCwt3EH3') {
         this.router.navigate(['/login']);
         this.flashMessagesService.show('YOU ARE NOT ALLOWED THERE', {
           cssClass: 'alert-danger',

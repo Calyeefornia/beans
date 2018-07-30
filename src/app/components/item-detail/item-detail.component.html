@@ -1,7 +1,10 @@
 <div class="main">
+  <div>
     <mat-card>
       <mat-card-header>
-        <mat-card-title><h3>{{itemDetails.itemName}}</h3></mat-card-title>
+        <mat-card-title>
+          <h3>{{itemDetails.itemName}}</h3>
+        </mat-card-title>
       </mat-card-header>
       <img mat-card-image src='{{itemDetails.imgUrl}}'>
       <mat-card-content>
@@ -10,7 +13,9 @@
     </mat-card>
     <div class="descriptionBox">
       <div class='description'>
-        <h4><u>DESCRIPTION</u></h4>
+        <h4>
+          <u>DESCRIPTION</u>
+        </h4>
         <p>{{itemDetails.description}}</p>
         <p>${{itemDetails.price}}</p>
       </div>
@@ -19,3 +24,15 @@
       </button>
     </div>
   </div>
+  <div class='chatBox'>
+    <h1>Chat with Buyer</h1>
+    <div class='convo'>
+      <div *ngFor='let msg of messages'>
+        <p>{{msg.name}}: {{msg.message}}</p>
+      </div>
+    </div>
+    <div class='msgBox'>
+      <input type='text' placeholder="Type something here..." (keyup.enter) = "sendChat($event.target.value)" [(ngModel)]='msgValue'>
+    </div>
+  </div>
+</div>

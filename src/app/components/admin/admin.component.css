@@ -1,11 +1,11 @@
 .allItems{
   display: flex;
   height: 100%;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .item{
-  max-width: 150px;
+  width: 120px;
   margin: 20px;
   cursor: pointer;
 }
@@ -15,4 +15,9 @@
   border: 1px solid black;
   margin-top: 8px;
   font-size: 1.5em;
+}
+
+mat-card img{
+  width: 150px;
+  height: 150px;
 }

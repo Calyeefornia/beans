@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit {
                 const ref = user.listings[key];
                 ref.itemKey = key;
                 this.purchaseList.push(user.listings[key]);
+                console.log(user.listings[key]);
               } else {
                 return;
               }
