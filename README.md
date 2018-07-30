@@ -2,6 +2,7 @@
 
 **NOTE: ALL FEATURES ARE WORKING ON THE WEBSITE EXCEPT THE PAYMENT SERVICE BECAUSE TO DEPLOY THE CONTRACT TO THE NETWORK, WE HAVE TO PAY MONEY. HOWEVER, YOU CAN VIEW THE PAYMENT FUNCTION IN OUR VIDEO. WE HAVE TESTED IT LOCALLY**
 
+## Requirements 
 **TO TEST OUR SITE SMOOTHLY. YOU NEED 2 THINGS! CHROME AND METAMASK**
 
 * [ ][CHROME](https://www.google.com/chrome/)
@@ -92,9 +93,7 @@ In the case of (2) : Middleman will press a button and it'll do 2 things:
 1. Update the listing on the Smart Contract to indicate the issue has been resolved and gives it 1 vote.
 2. Since the vote has reached majority i.e. 2:3, the payment is proccessed and the money is transferred to the seller.
 
-## Requirements 
-* Metamask 
-* Ganache
+
 
 ## Installing / Getting started
 
