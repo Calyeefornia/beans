@@ -39,6 +39,7 @@ Every party interacts with the same contract that contains an agreed upon set of
 
 
 ## How it works
+![DESCRIPTION](https://i.imgur.com/vJ29uN1.jpg)
 The smart contract acts as an ESCROW SERVICE with the money being held entirely in the contract during the transaction.
 The buyer first deposits the money into the contract through our platform.
 Then, whether money the is transacted to the seller is dependent on whether the item is able to garner 2 out of 3 votes.
@@ -65,7 +66,7 @@ After uploading, the item will be listed on the home page until it is sold.
 The buyer views the item on the home page and makes a purchase request by clicking on the button. 
 
 The button initiates a buy request and this does 2 things:
-1. creates a listing on the contract. 
+1. Creates a listing on the contract. 
 2. The buyer deposits the money in the contract.
 
 The seller is able to see that there is a buy request on the item. The seller sends the product and clicks on the button.
