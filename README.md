@@ -1,5 +1,11 @@
 ![Logo of the project](https://i.imgur.com/9awe60E.jpg)
 
+**NOTE: ALL FEATURES ARE WORKING ON THE WEBSITE EXCEPT THE PAYMENT SERVICE BECAUSE TO DEPLOY THE CONTRACT TO THE NETWORK, WE HAVE TO PAY MONEY. HOWEVER, YOU CAN VIEW THE PAYMENT FUNCTION IN OUR VIDEO. WE HAVE TESTED IT LOCALLY**
+
+Website Deployed here: [Beans-MarketPlace](https://beans-marketplace.azurewebsites.net/)
+
+
+
 # PROPOSED LEVEL OF ACHIEVEMENT
 GEMINI
 
@@ -27,14 +33,26 @@ Every party interacts with the same contract that contains an agreed upon set of
 
 
 ## How it works
+The smart contract acts as an ESCROW SERVICE with the money being held entirely in the contract during the transaction.
+The buyer first deposits the money into the contract through our platform.
+Then, whether money the is transacted to the seller is dependent on whether the item is able to garner 2 out of 3 votes.
+At no point in time during the trade anyone is able to touch the money. 
 
-The money is held entirely in the contract. At no point in time during the trade the admin is able to touch your money. The only time we can choose to direct the money is when we are called to resolve the dispute.
-This means that the smart contract allows both parties to safely exchange money with one another, and if need be, name a trusted third-party to resolve a dispute. 
+The vote can come from either the Buyer, the Seller OR the Admin.
+
+So in an ideal case, when the buyer and seller are both happy with the transaction, they click on a button to increment the vote by 1 count each, and since the votes reach a majority(2 out of 3) the money flows from the contract to the seller.
+
+In a not so ideal case, when there's a dispute, the admin can step in to resolve the dispute, voting in favor of either the buyer or the seller. 
+The former will lead to a refund.
+The latter will lead to a payment to the seller.
+
+This means that the smart contract allows both parties to safely exchange money with one another, and if need be,name a trusted third-party to resolve a dispute. 
 As of now, the trusted 3rd party is us, but ideally we would like it to be anyone from a community - Where people choose a mediator from the community based on a rating-based system.
 How this can be implemented is we implement our own cryptocurrency.
-Mediators are incentivised to resolve a dispute well if we reward them with cryptocurrency.
+This allows the system to incentivise third parties to give good reviews as they can be rewarded with cryptocurrency.
 
 
+## Program Flow/Description
 Similar to online marketplaces, the seller uploads an item along with other details like image, price, description.
 After uploading, the item will be listed on the home page until it is sold.
 
@@ -55,6 +73,7 @@ Thereafter, when the buyer receives the product, he clicks on a button, this doe
 In the event where there is a dispute between the buyer and seller 
 -> E.G. buyer unhappy with product/buyer doesnt receive product
 He can choose to contact the middleman. The middleman in this project will be defaulted as the deployer of the contract -> us.
+
 To resolve the dispute between the buyer & seller, the middleman will make one of 2 decisions. 
 Middleman can choose to : 
 1. Rule in favor of buyer
@@ -65,10 +84,10 @@ In the case of (1) : Middleman will press a button and it'll do 2 things:
 2. Refund the buyer his money.
 
 In the case of (2) : Middleman will press a button and it'll do 2 things:
-1. 1. Update the listing on the Smart Contract to indicate the issue has been resolved and gives it 1 vote.
+1. Update the listing on the Smart Contract to indicate the issue has been resolved and gives it 1 vote.
 2. Since the vote has reached majority i.e. 2:3, the payment is proccessed and the money is transferred to the seller.
 
-## Requirements
+## Requirements 
 * Metamask 
 * Ganache
 
@@ -86,33 +105,35 @@ ng serve
 ```
 
 
-## Features/User Stories
+## Features/User Stories Achieved
 
 * As a non-registered user, I want to 
   * Register an account
-   * With Email & Passowrd
-   * With Social Platforms -> Facebook & Google
-  * Allowed to view listings without registering account.
-  * Unable to upload listing.
-  * Unable to view other pages except the signup/login and listings page.
+   * [x] With Email & Passowrd
+   * [x] With Social Platforms -> Facebook & Google
+  * [x] Allowed to view listings without registering account.
+  * [x] Unable to upload listing.
+  * [x] Unable to view other pages except the signup/login and listings page.
 
 * As a Seller, I want to 
-  * upload a listing(inclusive of picture and product description)
-  * preview image before it is uploading.
-  * receive payment.
-  * Won't be able to buy my own item.
+  * [x] Upload a listing(inclusive of picture and product description)
+  * [x] Preview image before it is uploading.
+  * [x] receive payment.
+  * [x] Won't be able to buy my own item.
+  * [x] Communicate with Buyer
 
 * As a buyer, I want to 
-  * browse through listings 
+  * [x]Browse through listings 
    * After click on a listing, I should be able to see more detail about the product.
-  * Search Bar
+  * [x] Search Bar
     1. Category
     2. Item Name
-  * Make payment securely
+  * [x] Make payment securely
+  * [x] Communicate with Seller
 
 * As an admin/third-party I want to 
-  * Browse through listings
-  * Resolve the dispute -> In favor of buyer or In favor of Seller
+  * [x] Browse through listings
+  * [x] Resolve the dispute -> In favor of buyer or In favor of Seller
 
 
 ## Technology Stack
@@ -123,5 +144,4 @@ ng serve
 * Solidity
 
 
-## Links
 
