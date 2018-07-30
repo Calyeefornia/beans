@@ -128,8 +128,8 @@ ng serve
   * [x] Communicate with Buyer
 
 * As a buyer, I want to 
-  * [x]Browse through listings 
-   * After click on a listing, I should be able to see more detail about the product.
+  * [x] Browse through listings 
+   * [x] After click on a listing, I should be able to see more detail about the product.
   * [x] Search Bar
     1. Category
     2. Item Name
