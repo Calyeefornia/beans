@@ -150,5 +150,6 @@ ng serve
 * Web3
 * Solidity
 
-
+## User Testing
+* Conducted trial among friends and they suggested adding a review page for Buyers & Sellers
 
